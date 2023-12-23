@@ -13,6 +13,12 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
+            - name: Setup git
+              run: |
+                  git init
+                  git config user.name "GitHub actions"
+                  git config user.email """
+
             - name: make things
               run: |
                   mkdir workspace
