@@ -22,7 +22,7 @@ jobs:
             - name: make things
               run: |
                   mkdir workspace
-                  printf -- "import { findByProps } from "@vendetta/metro";\n\nconsole.log(findByProps(\"Text\"));\n// Write your code here" > workspace/index.tsx
+                  printf -- "import { findByProps } from \"@vendetta/metro\";\n\nconsole.log(findByProps(\"Text\"));\n// Write your code here" > workspace/index.tsx
 
             - name: stage changed files
               run: git add workspace -f
