@@ -29,3 +29,6 @@ jobs:
 
             - name: commit changed files
               run: git commit -m "Generated template file"
+
+            - name: push commit
+              run: git push
