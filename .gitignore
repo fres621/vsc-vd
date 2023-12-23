@@ -2,7 +2,5 @@ node_modules/
 logs/
 dist/
 
-workspace/
-
 package-lock.json
 pnpm-lock.yaml

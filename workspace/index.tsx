@@ -1,4 +1,4 @@
-import { findByProps } from @vendetta/metro;
+import { findByProps } from "@vendetta/metro";
 
-console.log(findByProps(Text));
+console.log(findByProps("Text"));
 // Write your code here
