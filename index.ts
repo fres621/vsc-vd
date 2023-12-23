@@ -3,10 +3,11 @@ import { promises as fs } from "fs";
 import path from "path";
 import transpile from './transpile';
 import { networkInterfaces } from 'os';
+import build from './build';
 
 var stdin = process.stdin;
 
-const filePath = "./file.tsx";
+const filePath = "./workspace/index.tsx";
 
 let logFolder = "logs";
 fs.mkdir(logFolder).catch(_=>{});
@@ -40,26 +41,29 @@ wss.on('connection', function connection(ws) {
 stdin.setRawMode(true);
 stdin.setEncoding('utf8');
 stdin.on( 'data', async function( key: string ){
-    if (key === '\u0003') return process.exit();
-    if (key === '\u000C') {
-        console.clear();
-        console.log(`= > There are currently ${wss.clients.size} connected clients...`);
-    };
+  if (key === '\u0003') return process.exit();
+  if (key === '\u000C') {
+    console.clear();
+    console.log(`= > There are currently ${wss.clients.size} connected clients...`);
+  };
 
-    if (key === '\r') {
-      const transpiled = transpile((await fs.readFile(filePath)).toString());
-      console.log(`= > Sending to ${wss.clients.size} clients...`);
-      wss.clients.forEach(client=>client.send(transpiled));
-    };
+  if (key === '\r') {
+    const transpiled = await build(filePath);
+    //const transpiled = transpile((await fs.readFile(filePath)).toString());
+    console.log(`= > Sending to ${wss.clients.size} clients...`);
+    wss.clients.forEach(client=>client.send(transpiled));
+  };
 
-    if (key === 'r') {
-      const transpiled = transpile((await fs.readFile(filePath)).toString());
-      console.log(`= > Transpiled code:`);
-      console.log(transpiled);
+  if (key === 'r') {
+    const transpiled = await build(filePath);
+    //const transpiled = transpile((await fs.readFile(filePath)).toString());
+    console.log(`= > Transpiled code:`);
+    console.log(transpiled);
   };
   
   if (key === 'l') {
     filename = generateLogFileName();
     console.log("= > Generated new log file");
   }
+
 });

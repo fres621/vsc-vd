@@ -1,0 +1,25 @@
+name: B
+
+on:
+    push:
+        branches: [master]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        permissions:
+          contents: write
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: make things
+              run: |
+                  mkdir workspace
+                  printf -- "import { findByProps } from "@vendetta/metro";\n\nconsole.log(findByProps("Text"));\n// Write your code here" > workspace/index.tsx
+
+            - name: stage changed files
+              run: git add .
+
+            - name: commit changed files
+              run: git commit -m "Generated template file"

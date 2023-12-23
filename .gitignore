@@ -2,7 +2,7 @@ node_modules/
 logs/
 dist/
 
-file.tsx
+workspace/
 
 package-lock.json
 pnpm-lock.yaml
